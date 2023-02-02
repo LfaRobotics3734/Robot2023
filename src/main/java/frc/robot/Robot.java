@@ -7,10 +7,6 @@ package frc.robot;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -24,14 +20,7 @@ import edu.wpi.first.wpilibj.XboxController;
 public class Robot extends TimedRobot {
   XboxController controller;
 
-  CANSparkMax drivingMotor;
-  CANSparkMax turningMotor;
-
-  RelativeEncoder drivingEncoder;
-  AbsoluteEncoder turningEncoder;
-
-  SparkMaxPIDController drivingPID;
-  SparkMaxPIDController turningPID;
+  SwerveDrive frontLeft;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,44 +29,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     controller = new XboxController(0);
 
-    drivingMotor = new CANSparkMax(1, MotorType.kBrushless);
-    turningMotor = new CANSparkMax(2, MotorType.kBrushless);
-
-    drivingEncoder = drivingMotor.getEncoder();
-    turningEncoder = turningMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    drivingPID = drivingMotor.getPIDController();
-    turningPID = turningMotor.getPIDController();
-    drivingPID.setFeedbackDevice(drivingEncoder);
-    turningPID.setFeedbackDevice(turningEncoder);
-
-    drivingEncoder.setPositionConversionFactor(0.0762 * Math.PI / 4.714);
-    drivingEncoder.setVelocityConversionFactor((0.0762 * Math.PI / 4.714) / 60.0);
-    turningEncoder.setPositionConversionFactor(2 * Math.PI);
-    turningEncoder.setVelocityConversionFactor((2 * Math.PI) / 60.0);
-
-    turningPID.setPositionPIDWrappingEnabled(true);
-    turningPID.setPositionPIDWrappingMinInput(0);
-    turningPID.setPositionPIDWrappingMaxInput(2 * Math.PI); 
-
-    drivingPID.setP(0.04);
-    drivingPID.setI(0);
-    drivingPID.setD(0);
-    drivingPID.setFF(1/4.8016);
-    drivingPID.setOutputRange(-1, 1);
-
-    turningPID.setP(0);
-    turningPID.setI(0);
-    turningPID.setD(0);
-    turningPID.setFF(0);
-    turningPID.setOutputRange(-1, 1);
-
-    drivingMotor.setIdleMode(IdleMode.kBrake);
-    turningMotor.setIdleMode(IdleMode.kBrake);
-
-    drivingMotor.burnFlash();
-    turningMotor.burnFlash();
-    
-    drivingEncoder.setPosition(0);
+    frontLeft = new SwerveDrive(1, 2);
   }
 
   /**
@@ -120,13 +72,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //drivingPID.setReference(0.2, CANSparkMax.ControlType.kVelocity);
-    //turningPID.setReference(0.2, CANSparkMax.ControlType.kPosition);
-    if(controller.getRawButtonReleased(1)){
-      turningPID.setReference(Math.PI, CANSparkMax.ControlType.kPosition);
-    } else if(controller.getRawButtonReleased(4)){
-      turningPID.setReference(0, CANSparkMax.ControlType.kPosition);
-    }
+    
   }
 
   /** This function is called once when the robot is disabled. */
