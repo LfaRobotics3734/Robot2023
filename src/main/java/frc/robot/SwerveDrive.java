@@ -19,8 +19,8 @@ public class SwerveDrive {
     SparkMaxPIDController turningPID;
 
     public SwerveDrive(int DrivingMotorCanID, int turningMOtorCanID){
-        drivingMotor = new CANSparkMax(1, MotorType.kBrushless);
-        turningMotor = new CANSparkMax(2, MotorType.kBrushless);
+        drivingMotor = new CANSparkMax(DrivingMotorCanID, MotorType.kBrushless);
+        turningMotor = new CANSparkMax(turningMOtorCanID, MotorType.kBrushless);
 
         drivingEncoder = drivingMotor.getEncoder();
         turningEncoder = turningMotor.getAbsoluteEncoder(Type.kDutyCycle);
