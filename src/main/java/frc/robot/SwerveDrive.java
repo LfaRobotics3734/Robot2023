@@ -18,9 +18,12 @@ public class SwerveDrive {
     SparkMaxPIDController drivingPID;
     SparkMaxPIDController turningPID;
 
-    public SwerveDrive(int DrivingMotorCanID, int turningMOtorCanID){
+    double angleOffset;
+
+    public SwerveDrive(int DrivingMotorCanID, int turningMOtorCanID, double angleOffset){
         drivingMotor = new CANSparkMax(DrivingMotorCanID, MotorType.kBrushless);
         turningMotor = new CANSparkMax(turningMOtorCanID, MotorType.kBrushless);
+        this.angleOffset = angleOffset;
 
         drivingEncoder = drivingMotor.getEncoder();
         turningEncoder = turningMotor.getAbsoluteEncoder(Type.kDutyCycle);
@@ -60,10 +63,14 @@ public class SwerveDrive {
     }
 
     public void setAngle(double angle){
-        turningPID.setReference(angle, CANSparkMax.ControlType.kPosition);
+        turningPID.setReference(angle + angleOffset, CANSparkMax.ControlType.kPosition);
     }
 
     public void setSpeed(double speed){
-        drivingPID.setReference(speed, CANSparkMax.ControlType.kVelocity);
+        double realSpeed = speed;
+        if(angleOffset == 0 || angleOffset == Math.PI){
+            realSpeed = realSpeed * -1;
+        }
+        drivingPID.setReference(realSpeed, CANSparkMax.ControlType.kDutyCycle);
     }
 }

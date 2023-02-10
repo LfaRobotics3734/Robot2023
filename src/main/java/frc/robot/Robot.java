@@ -20,7 +20,9 @@ import edu.wpi.first.wpilibj.XboxController;
 public class Robot extends TimedRobot {
   XboxController controller;
 
-  SwerveDrive frontLeft;
+  SwerveDrive frontLeft, frontRight, backLeft, backRight;
+  double[] angleOffsets = {0, Math.PI/2, -Math.PI/2, Math.PI};
+  //frontRight, frontLeft, backRight, backLeft
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -29,7 +31,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     controller = new XboxController(0);
 
-    frontLeft = new SwerveDrive(1, 2);
+    frontLeft = new SwerveDrive(3, 4, angleOffsets[1]);
+    frontRight = new SwerveDrive(1, 2, angleOffsets[0]);
+    backLeft = new SwerveDrive(7, 8, angleOffsets[3]);
+    backRight = new SwerveDrive(5, 6, angleOffsets[2]);
   }
 
   /**
@@ -72,7 +77,38 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    
+    if(controller.getRawButtonReleased(1)){
+      double angle = 0;
+      frontLeft.setAngle(angle);
+      frontRight.setAngle(angle);
+      backRight.setAngle(angle);
+      backLeft.setAngle(angle);
+    }
+    if(controller.getRawButtonReleased(2)){
+      double angle = Math.PI * 1.5;
+      frontLeft.setAngle(angle);
+      frontRight.setAngle(angle);
+      backRight.setAngle(angle);
+      backLeft.setAngle(angle);
+    }
+    if(controller.getRawButtonReleased(3)){
+      double angle = Math.PI * 0.5;
+      frontLeft.setAngle(angle);
+      frontRight.setAngle(angle);
+      backRight.setAngle(angle);
+      backLeft.setAngle(angle);
+    }
+    if(controller.getRawButtonReleased(4)){
+      double angle = Math.PI;
+      frontLeft.setAngle(angle);
+      frontRight.setAngle(angle);
+      backRight.setAngle(angle);
+      backLeft.setAngle(angle);
+    }
+    frontLeft.setSpeed(0.1);
+    frontRight.setSpeed(0.1); 
+    backRight.setSpeed(0.1);
+    backLeft.setSpeed(0.1);
   }
 
   /** This function is called once when the robot is disabled. */
