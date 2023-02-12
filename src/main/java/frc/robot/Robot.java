@@ -21,20 +21,18 @@ public class Robot extends TimedRobot {
   XboxController controller;
 
   SwerveDrive frontLeft, frontRight, backLeft, backRight;
-  double[] angleOffsets = {0, Math.PI/2, -Math.PI/2, Math.PI};
-  //frontRight, frontLeft, backRight, backLeft
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    controller = new XboxController(0);
+    controller = new XboxController(Constants.IO.controller);
 
-    frontLeft = new SwerveDrive(3, 4, angleOffsets[1]);
-    frontRight = new SwerveDrive(1, 2, angleOffsets[0]);
-    backLeft = new SwerveDrive(7, 8, angleOffsets[3]);
-    backRight = new SwerveDrive(5, 6, angleOffsets[2]);
+    frontLeft = new SwerveDrive(Constants.IO.frontLeftDrive, Constants.IO.frontLeftTurn, Constants.Turn.angleOffsets[1]);
+    frontRight = new SwerveDrive(Constants.IO.frontRightDrive, Constants.IO.frontRightTurn, Constants.Turn.angleOffsets[0]);
+    backLeft = new SwerveDrive(Constants.IO.backLeftDrive, Constants.IO.backLeftTurn, Constants.Turn.angleOffsets[3]);
+    backRight = new SwerveDrive(Constants.IO.backRightDrive, Constants.IO.backRightTurn, Constants.Turn.angleOffsets[2]);
   }
 
   /**
