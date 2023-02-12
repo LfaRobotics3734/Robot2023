@@ -7,10 +7,10 @@ public class Constants {
         public static double positionConversionFactor = PhysicalParams.wheelDiameters * Math.PI / PhysicalParams.drivingMotorReduction;
         public static double velocityConversionFactor = positionConversionFactor / 60.0;
         
-        public static double p = 0;
+        public static double p = 0.4;
         public static double i = 0;
         public static double d = 0;
-        public static double ff = 0;
+        public static double ff = 1/PhysicalParams.drivingFreeSpeedRPS;
 
     }
 

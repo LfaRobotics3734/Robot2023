@@ -71,6 +71,6 @@ public class SwerveDrive {
         if(angleOffset == 0 || angleOffset == Math.PI){
             realSpeed = realSpeed * -1;
         }
-        drivingPID.setReference(realSpeed, CANSparkMax.ControlType.kDutyCycle);
+        drivingPID.setReference(realSpeed, CANSparkMax.ControlType.kVelocity);
     }
 }

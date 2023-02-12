@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import java.lang.ModuleLayer.Controller;
+
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -105,10 +108,10 @@ public class Robot extends TimedRobot {
       backRight.setAngle(angle);
       backLeft.setAngle(angle);
     }
-    frontLeft.setSpeed(0.1);
-    frontRight.setSpeed(0.1); 
-    backRight.setSpeed(0.1);
-    backLeft.setSpeed(0.1);
+    frontLeft.setSpeed(1);
+    frontRight.setSpeed(1); 
+    backRight.setSpeed(1);
+    backLeft.setSpeed(1);
   }
 
   /** This function is called once when the robot is disabled. */
