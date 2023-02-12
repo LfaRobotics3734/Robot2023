@@ -2,6 +2,22 @@ package frc.robot;
 
 public class Constants {
 
+    public static class IO{
+        public static int frontLeftDrive = 3;
+        public static int frontLeftTurn = 4;
+
+        public static int frontRightDrive = 1;
+        public static int frontRightTurn = 2;
+        
+        public static int backLeftDrive = 7;
+        public static int backLeftTurn = 8;
+
+        public static int backRightDrive = 5;
+        public static int backRightTurn = 6;
+
+        public static int controller = 0;
+    }
+
     public static class Drive{
 
         public static double positionConversionFactor = PhysicalParams.wheelDiameters * Math.PI / PhysicalParams.drivingMotorReduction;
@@ -23,6 +39,9 @@ public class Constants {
         public static double i = 0;
         public static double d = 0;
         public static double ff = 0;
+
+        public static double[] angleOffsets = {0, Math.PI/2, -Math.PI/2, Math.PI};
+        //frontRight, frontLeft, backRight, backLeft
 
     }
 
